@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobileShop/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
   final String id;
@@ -11,29 +12,35 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridTile(
-      child: Column(
-        children: <Widget>[
-          Image.network(imageUrl),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.black,
+      child: GestureDetector(
+        onTap: () => Navigator.of(context).pushNamed(
+          ProductDetailScreen.routeName,
+          arguments: id,
+        ),
+        child: Column(
+          children: <Widget>[
+            Image.network(imageUrl),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                Text(
-                  "$price €",
-                  style: TextStyle(
-                    color: Colors.black,
+                  Text(
+                    "$price €",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       header: Row(
         mainAxisAlignment: MainAxisAlignment.end,
