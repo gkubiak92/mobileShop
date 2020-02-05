@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../widgets/products_grid.dart';
 
-class ProductsOverviewScreen extends StatelessWidget {
+enum FilterOptions {
+  Favourites,
+  All,
+}
+
+class ProductsOverviewScreen extends StatefulWidget {
+  @override
+  _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
+}
+
+class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  var _showOnlyFavourites = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +26,27 @@ class ProductsOverviewScreen extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {},
-          )
+          ),
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text('Only favourites'),
+                value: FilterOptions.Favourites,
+              ),
+              PopupMenuItem(
+                child: Text('Show all'),
+                value: FilterOptions.All,
+              ),
+            ],
+            onSelected: (FilterOptions selectedValue) {
+              setState(() {
+                selectedValue == FilterOptions.Favourites
+                    ? _showOnlyFavourites = true
+                    : _showOnlyFavourites = false;
+              });
+            },
+          ),
         ],
         title: Text(
           'Woman',
@@ -22,7 +54,7 @@ class ProductsOverviewScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
       ),
-      body: ProductsGrid(),
+      body: ProductsGrid(_showOnlyFavourites),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.shopping_cart,
