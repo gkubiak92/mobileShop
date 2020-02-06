@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobileShop/providers/models/cart.dart';
 import 'package:mobileShop/providers/models/product.dart';
 import 'package:mobileShop/screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
+    final cart = Provider.of<Cart>(context, listen: false);
     return GridTile(
       header: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -36,7 +38,21 @@ class ProductItem extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            Image.network(product.imageUrl),
+            Stack(
+              children: <Widget>[
+                Image.network(product.imageUrl),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: IconButton(
+                    icon: Icon(Icons.add_shopping_cart),
+                    onPressed: () {
+                      cart.addItem(product.id, product.price, product.title);
+                    },
+                  ),
+                ),
+              ],
+            ),
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

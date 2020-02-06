@@ -1,4 +1,8 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:mobileShop/providers/models/cart.dart';
+import 'package:mobileShop/screens/cart_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/products_grid.dart';
 
@@ -20,12 +24,19 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.shopping_cart,
-              color: Colors.black,
+          Consumer<Cart>(
+            builder: (_, cart, ch) => Badge(
+              child: ch,
+              badgeContent: Text(
+                cart.getItemsCount().toString(),
+              ),
+              position: BadgePosition.topRight(top: 2, right: 2),
             ),
-            onPressed: () {},
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(CartScreen.routeName),
+            ),
           ),
           PopupMenuButton(
             icon: Icon(Icons.more_vert),

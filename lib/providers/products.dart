@@ -30,10 +30,26 @@ class Products with ChangeNotifier {
     Product(
       id: 'p4',
       title: 'Warm sweater',
-      description: 'Prepare any meal you want.',
+      description: '',
       price: 49.99,
       imageUrl:
           'http://cdn.aboutstatic.com/file/8d3c5720196a033b6abefe4db8c1e676?quality=90&progressive=1&width=800&height=800',
+    ),
+    Product(
+      id: 'p5',
+      title: 'Kardigan',
+      description: '',
+      price: 69.99,
+      imageUrl:
+          'https://cdn.aboutstatic.com/file/dc2990a815fbc1b9068cc6348628db25?quality=70&progressive=true&width=800&height=800',
+    ),
+    Product(
+      id: 'p6',
+      title: 'Black shirt',
+      description: '',
+      price: 39.99,
+      imageUrl:
+          'https://cdn.aboutstatic.com/file/9cf61b89c33b80698e2d0ad6ac94e3c5?quality=70&progressive=true&width=800&height=800',
     ),
   ];
 
