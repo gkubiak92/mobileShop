@@ -22,7 +22,7 @@ class CartScreen extends StatelessWidget {
           Card(
             margin: EdgeInsets.all(20),
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(20),
               child: Column(
                 children: <Widget>[
                   Row(
@@ -37,8 +37,11 @@ class CartScreen extends StatelessWidget {
                       ),
                       Chip(
                         label: Text(
-                          cart.totalAmount.toStringAsFixed(2),
-                          style: Theme.of(context).textTheme.subtitle1,
+                          "${cart.totalAmount.toStringAsFixed(2)} €",
+                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         backgroundColor: Colors.transparent,
                       )
@@ -51,8 +54,15 @@ class CartScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      FlatButton(
-                        child: Text('ORDER NOW'),
+                      RaisedButton(
+                        child: Text(
+                          'ORDER NOW',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        color: Colors.black,
+                        padding: EdgeInsets.all(10),
                         onPressed: () {},
                       )
                     ],
@@ -69,6 +79,7 @@ class CartScreen extends StatelessWidget {
               itemBuilder: (context, i) {
                 return CartItemWidget(
                     id: cart.items.values.toList()[i].id,
+                    productId: cart.items.keys.toList()[i],
                     price: cart.items.values.toList()[i].price,
                     quantity: cart.items.values.toList()[i].quantity,
                     title: cart.items.values.toList()[i].title);

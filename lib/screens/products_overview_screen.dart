@@ -26,6 +26,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         actions: <Widget>[
           Consumer<Cart>(
             builder: (_, cart, ch) => Badge(
+              badgeColor: Colors.deepOrange,
               child: ch,
               badgeContent: Text(
                 cart.getItemsCount().toString(),
@@ -66,14 +67,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         backgroundColor: Colors.white,
       ),
       body: ProductsGrid(_showOnlyFavourites),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.shopping_cart,
-          color: Colors.white,
-        ),
-        backgroundColor: Theme.of(context).accentColor,
-        onPressed: () {},
-      ),
     );
   }
 }
