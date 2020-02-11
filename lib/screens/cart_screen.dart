@@ -66,11 +66,41 @@ class CartScreen extends StatelessWidget {
                         color: Colors.black,
                         padding: EdgeInsets.all(10),
                         onPressed: () {
-                          order.addOrder(
-                            cart.items.values.toList(),
-                            cart.totalAmount,
-                          );
-                          cart.clear();
+                          if (cart.getItemsCount() > 0) {
+                            order.addOrder(
+                              cart.items.values.toList(),
+                              cart.totalAmount,
+                            );
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                content: Text('Thank you for your order'),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text('OK'),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  )
+                                ],
+                              ),
+                            );
+                            cart.clear();
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                content: Text(
+                                    'Your cart is empty, add some products first.'),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text('OK'),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  )
+                                ],
+                              ),
+                            );
+                          }
                         },
                       )
                     ],
