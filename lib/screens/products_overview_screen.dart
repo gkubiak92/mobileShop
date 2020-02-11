@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:mobileShop/providers/models/cart.dart';
 import 'package:mobileShop/screens/cart_screen.dart';
+import 'package:mobileShop/widgets/side_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/products_grid.dart';
@@ -22,6 +23,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideDrawer(),
       appBar: AppBar(
         actions: <Widget>[
           Consumer<Cart>(
