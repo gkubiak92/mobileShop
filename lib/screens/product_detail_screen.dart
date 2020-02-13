@@ -1,7 +1,11 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:mobileShop/providers/models/cart.dart';
 import 'package:mobileShop/providers/products.dart';
 import 'package:mobileShop/widgets/size_button.dart';
 import 'package:provider/provider.dart';
+
+import 'cart_screen.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/product-detail';
@@ -13,6 +17,7 @@ class ProductDetailScreen extends StatelessWidget {
       context,
       listen: false,
     ).getById(productId);
+    final cart = Provider.of<Cart>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -21,6 +26,23 @@ class ProductDetailScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline1,
         ),
         backgroundColor: Colors.white,
+        actions: <Widget>[
+          Consumer<Cart>(
+            builder: (_, cart, ch) => Badge(
+              badgeColor: Colors.deepOrange,
+              child: ch,
+              badgeContent: Text(
+                cart.getItemsCount().toString(),
+              ),
+              position: BadgePosition.topRight(top: 2, right: 2),
+            ),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(CartScreen.routeName),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -91,7 +113,10 @@ class ProductDetailScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        cart.addItem(productId, loadedProduct.price,
+                            loadedProduct.title);
+                      },
                     ),
                   )
                 ],
