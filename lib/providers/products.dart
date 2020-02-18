@@ -65,8 +65,32 @@ class Products with ChangeNotifier {
     return items.firstWhere((product) => product.id == id);
   }
 
-  void addProduct() {
-    // _items.add(value);
+  void addProduct(Product product) {
+    final newProduct = Product(
+      title: product.title,
+      description: product.description,
+      imageUrl: product.imageUrl,
+      price: product.price,
+    );
+    _items.add(newProduct);
     notifyListeners();
+  }
+
+  void updateProduct(Product updatedProduct) {
+    final productIndex =
+        _items.indexWhere((oldProduct) => oldProduct.id == updatedProduct.id);
+    if (productIndex >= 0) {
+      _items[productIndex] = updatedProduct;
+      notifyListeners();
+    }
+  }
+
+  void removeProduct(productId) {
+    final productIndex =
+        _items.indexWhere((product) => product.id == productId);
+    if (productIndex >= 0) {
+      _items.removeAt(productIndex);
+      notifyListeners();
+    }
   }
 }
