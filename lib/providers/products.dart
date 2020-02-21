@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mobileShop/providers/models/product.dart';
+import 'package:http/http.dart' as http;
 
 class Products with ChangeNotifier {
   List<Product> _items = [
@@ -65,15 +68,33 @@ class Products with ChangeNotifier {
     return items.firstWhere((product) => product.id == id);
   }
 
-  void addProduct(Product product) {
-    final newProduct = Product(
-      title: product.title,
-      description: product.description,
-      imageUrl: product.imageUrl,
-      price: product.price,
-    );
-    _items.add(newProduct);
-    notifyListeners();
+  Future<void> addProduct(Product product) {
+    const url = 'https://flutter-mobile-shop.firebaseio.com/producas';
+    return http
+        .post(
+      url,
+      body: json.encode({
+        'id': product.id,
+        'title': product.title,
+        'price': product.price,
+        'description': product.description,
+        'imageUrl': product.imageUrl
+      }),
+    )
+        .then((res) {
+      final newProduct = Product(
+        id: json.decode(res.body)['name'],
+        title: product.title,
+        description: product.description,
+        imageUrl: product.imageUrl,
+        price: product.price,
+      );
+      _items.add(newProduct);
+      notifyListeners();
+    }).catchError((error) {
+      print('error from products.dart');
+      throw (error);
+    });
   }
 
   void updateProduct(Product updatedProduct) {
