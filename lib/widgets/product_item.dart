@@ -40,7 +40,9 @@ class ProductItem extends StatelessWidget {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.network(product.imageUrl),
+                Image.network(
+                  product.imageUrl,
+                ),
                 Positioned(
                   bottom: 0,
                   right: 0,

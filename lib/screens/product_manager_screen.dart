@@ -7,6 +7,10 @@ import 'package:provider/provider.dart';
 class ProductManagerScreen extends StatelessWidget {
   static const routeName = '/product-manager';
 
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<Products>(context, listen: false).getAndSetProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context);
@@ -25,15 +29,18 @@ class ProductManagerScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: ListView.builder(
-          itemBuilder: (_, i) => ProductManagerListTile(
-            id: productsData.items[i].id,
-            imageUrl: productsData.items[i].imageUrl,
-            title: productsData.items[i].title,
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: ListView.builder(
+            itemBuilder: (_, i) => ProductManagerListTile(
+              id: productsData.items[i].id,
+              imageUrl: productsData.items[i].imageUrl,
+              title: productsData.items[i].title,
+            ),
+            itemCount: productsData.items.length,
           ),
-          itemCount: productsData.items.length,
         ),
       ),
     );
