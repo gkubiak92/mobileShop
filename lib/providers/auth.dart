@@ -4,13 +4,14 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 class Auth with ChangeNotifier {
+  static const apiKey = '';
   String _token;
   DateTime _expiryDate;
   String _userId;
 
   Future<void> _authenticate(String email, String password, String type) async {
     final url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:$type?key=AIzaSyB-_HG4-d7wfX8sfdksJg9dTisxKuvNQoo";
+        "https://identitytoolkit.googleapis.com/v1/accounts:$type?key=$apiKey";
     try {
       final response = await http.post(
         url,
