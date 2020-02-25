@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobileShop/providers/auth.dart';
 import 'package:mobileShop/providers/models/cart.dart';
 import 'package:mobileShop/providers/models/orders.dart';
+import 'package:mobileShop/screens/auth-screen.dart';
 import 'package:mobileShop/screens/cart_screen.dart';
 import 'package:mobileShop/screens/edit_product_screen.dart';
 import 'package:mobileShop/screens/orders_screen.dart';
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: Products()),
         ChangeNotifierProvider.value(value: Cart()),
         ChangeNotifierProvider.value(value: Orders()),
+        ChangeNotifierProvider.value(value: Auth())
       ],
       child: MaterialApp(
         title: 'mobileShop',
@@ -36,13 +39,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: ProductsOverviewScreen(),
+        home: AuthScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
           OrdersScreen.routeName: (ctx) => OrdersScreen(),
           ProductManagerScreen.routeName: (ctx) => ProductManagerScreen(),
           EditProductScreen.routeName: (ctx) => EditProductScreen(),
+          AuthScreen.routeName: (ctx) => AuthScreen(),
         },
       ),
     );
